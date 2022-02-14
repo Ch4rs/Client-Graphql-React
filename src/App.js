@@ -1,4 +1,8 @@
+import React, { useState } from 'react';
 import "./App.css";
+import 'bulma/css/bulma.min.css';
+import Login from './Components/Login/Login';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,6 +13,8 @@ import {
 import { onError } from "@apollo/client/link/error";
 import GetUsers from "./Components/GetUsers";
 import Form from "./Components/Form";
+import { NavBar } from "./Components/navbar";
+
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -33,12 +39,20 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [token, setToken] = useState();
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
   return (
+    <div className="wrapper">
+      <h1>1</h1>
+    </div>
+    /*
     <ApolloProvider client={client}>
       {" "}
       { <GetUsers /> }
       <Form />
-    </ApolloProvider>
+    </ApolloProvider>*/
   );
 }
 
